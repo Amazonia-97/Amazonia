@@ -54,9 +54,14 @@
 <body>
 
   <div id="intro">
-    <img src="https://i.imgur.com/UtVpXoY.gif" alt="León rugiendo">
+    <!-- Imagen de león rugiendo (GIF animado que sí carga) -->
+    <img src="https://media.tenor.com/yheo1GGu3FwAAAAC/lion-roar.gif" alt="León rugiendo">
     <button id="skip-btn">Saltar intro</button>
-    <audio id="roar" src="https://www.fesliyanstudios.com/play-mp3/4386" autoplay></audio>
+    <!-- Audio funcional desde dominio confiable -->
+    <audio id="roar" preload="auto">
+      <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_d8a36f5f66.mp3?filename=lion-roar-6035.mp3" type="audio/mpeg">
+      Tu navegador no soporta audio HTML5.
+    </audio>
   </div>
 
   <div id="main">
@@ -70,14 +75,19 @@
     const skipBtn = document.getElementById('skip-btn');
     const roar = document.getElementById('roar');
 
-    // Omitir intro manualmente
+    // Reproduce el rugido al iniciar (si el navegador lo permite)
+    roar.play().catch(() => {
+      console.log("Autoplay bloqueado, el usuario debe interactuar");
+    });
+
+    // Botón para saltar intro
     skipBtn.onclick = () => {
       roar.pause();
       intro.style.display = 'none';
       main.style.display = 'block';
     };
 
-    // Omitir intro automáticamente tras 8 segundos
+    // Saltar automáticamente tras 8 segundos
     setTimeout(() => {
       intro.style.display = 'none';
       main.style.display = 'block';
